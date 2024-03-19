@@ -1,15 +1,14 @@
-export const fetchQuery = `*[_type == 'product'] | order(_createdAt desc) {
+export const fetchQuery = `*[_type == 'recipe'] | order(_createdAt desc) {
   _id,
   title,
-  ProductType,
+  RecipeType,
   mainImage {
     asset -> {
       url
     }
   },
-  shortDescription,
   Description,
-  Price,
+  Description,
   categories[] -> {
     _id,
     title,
@@ -17,7 +16,7 @@ export const fetchQuery = `*[_type == 'product'] | order(_createdAt desc) {
       asset -> {
         url
       }
+    },
     }
-  }
 }`;
 
