@@ -1,6 +1,6 @@
 import { View, Text, Image, SafeAreaView, TouchableOpacity, ScrollView } from 'react-native'
 import { Brand, Screen1 } from '../assets'
-import { MaterialIcons } from '@expo/vector-icons';
+import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react'
 import { useNavigation } from '@react-navigation/native';
@@ -37,7 +37,9 @@ const Profile = () => {
       <View className="w-80 h-72 flex rounded-md absolute bg-[#A6EADD] top-[37%]">
         <Text className="text-m font-serif font-medium text-[#36454F] underline left-24 p-1">User Dashboard</Text>
         <Text className="text-m font-serif font-medium text-[#36454F] p-1">Weekly Food Waste Cost:</Text>
+        <AntDesign name='barschart' size={124} color="#555" />
         <Text className="text-m font-serif font-medium text-[#36454F] p-1">Recipes Used:</Text>
+        <Text className="text-4xl font-serif font-bold text-[#36454F] p-1">3</Text>
       </View>
       <View className="w-80 h-46 flex rounded-md absolute bg-[#A6EADD] top-[76%]">
         <TouchableOpacity className="flex-row items-center justify-right content-between p-1">
