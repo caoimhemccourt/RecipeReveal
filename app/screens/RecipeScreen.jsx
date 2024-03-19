@@ -1,4 +1,4 @@
-import { View, Dimensions, Text, SafeAreaView, Image, ActivityIndicator, TouchableOpacity } from 'react-native'
+import { View, Dimensions, Text, SafeAreaView, Image, ActivityIndicator, TouchableOpacity, ScrollView } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { Brand } from '../assets';
@@ -6,7 +6,7 @@ import { MaterialIcons, Entypo, AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native'
 
 const RecipeScreen = ({ route }) => {
-    const {_id} = route.params;
+    const { _id } = route.params;
     const feeds = useSelector((state) => state.feeds);
     const [data, setData] = useState(null)
     const [isLoading, setIsLoading] = useState(false)
@@ -17,12 +17,12 @@ const RecipeScreen = ({ route }) => {
     useEffect(() => {
         setIsLoading(true);
         if (feeds) {
-          setData(feeds?.feeds.filter((item) => item._id === _id)[0]);
-          setInterval(() => {
-            setIsLoading(false);
-          }, 2000);
+            setData(feeds?.feeds.filter((item) => item._id === _id)[0]);
+            setInterval(() => {
+                setIsLoading(false);
+            }, 2000);
         }
-      }, []);
+    }, []);
 
 
     return (
@@ -38,20 +38,93 @@ const RecipeScreen = ({ route }) => {
                     <MaterialIcons name="person" size={50} color="#555" />
                 </TouchableOpacity>
             </View>
-        
+
             <View className="flex-1 items-start justify-start space-y-4">
                 {isLoading ? (
-                    <View className="w-full flex-1 h-full justify-center">
+                    <View className="flex-1 h-60 p-20">
                         <ActivityIndicator size={"large"} color={"teal"} />
                     </View>
                 ) : (
                     <>
+                        <ScrollView className="top-[2%]">
+                            <View className="rounded-xl items-center justify-center relative bg-[#A6EADD] flex top-[10%]"
+                                style={{ height: screenHeight / 2.5, width: 300, padding: 40 }}
+                            >
+                                <Image
+                                    source={{ uri: data?.mainImage?.asset?.url }}
+                                    resizeMode='contain'
+                                    className="w-32 h-48 mb-2"
+                                />
+                                <View className="space-y-1 w-full mb-2 items-center">
+                                    <Text className="text-base font-semibold text-[#36454F]">{data?.title}</Text>
+                                </View>
+
+                                <View className="space-y-1 w-full">
+                                    <Text className="text-sm text-[#36454F]">{data?.Description}</Text>
+                                </View>
+                            </View>
+                            <View className="rounded-xl items-center justify-center relative bg-[#A6EADD] flex-row top-[40%]"
+                                style={{ height: 350, width: 300, padding: 20 }}
+                            >
+                                {/* LEFT COLUMN */}
+                                <View className="flex-1 p-2">
+                                    <View className="space-y-1 w-full p-1">
+                                        <Text className="text-sm text-[#36454F]">Recipe Type: {data?.RecipeType}</Text>
+                                    </View>
+                                    <View className="space-y-1 w-full p-1">
+                                        <Text className="text-sm text-[#36454F]">Preparation Time: {data?.PreparationTime}</Text>
+                                    </View>
+                                    <View className="space-y-1 w-full p-1">
+                                        <Text className="text-sm text-[#36454F]">Cooking Time: {data?.CookingTime}</Text>
+                                    </View>
+                                    <View className="space-y-1 w-full p-1">
+                                        <Text className="text-sm text-[#36454F]">Nutritional Information: {data?.NutritionalInformation}</Text>
+                                    </View>
+                                </View>
+
+                                {/* RIGHT COLUMN */}
+                                <View className="flex-1">
+                                    <View className="space-y-1 w-full">
+                                        <Text className="text-sm text-[#36454F]">Ingredients: </Text>
+                                        <View>
+                                            {data?.Ingredients.map((ingredient, index) => (
+                                                <View key={index} className="w-full">
+                                                    <Text className="text-sm text-[#36454F]">
+                                                        {ingredient}
+                                                    </Text>
+                                                </View>
+                                            ))}
+                                        </View>
+                                    </View>
+                                </View>
+                            </View>                               
+                            {/* METHODS */}
+                            <View className="rounded-xl items-center justify-center relative bg-[#A6EADD] flex-row top-[45%]"
+                                style={{ height: 425, width: 300, padding: 40 }}
+                            >
+                                <View className="flex-1 p-1">
+                                    <View className="space-y-1 w-full">
+                                        <Text className="text-m text-[#36454F] font-medium">Method: </Text>
+                                        <View>
+                                            {data?.Method.map((method, index) => (
+                                                <View key={index} className="w-full">
+                                                    <Text className="text-sm text-[#36454F]">
+                                                        {method}
+                                                    </Text>
+                                                </View>
+                                            ))}
+                                        </View>
+                                    </View>
+                                </View>
+                            </View>
+
+                        </ScrollView>
                     </>
                 )}
             </View>
-            
+
         </SafeAreaView>
-  )
+    )
 }
 
 export default RecipeScreen

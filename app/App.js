@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Dashboard, OnBoardingScreen, RecipeScreen, SignUp, Notifications, Profile } from './screens';
+import { Dashboard, OnBoardingScreen, RecipeScreen, SignUp, Notifications, Profile, Recipes } from './screens';
 import { Provider } from "react-redux"
 import "react-native-url-polyfill/auto";
 import store from './context/store';
@@ -40,6 +40,7 @@ const App = () => {
           <Stack.Screen name="SignUp" component={SignUp} />
           <Stack.Screen name="Notifications" component={Notifications} />
           <Stack.Screen name="Profile" component={Profile} />
+          <Stack.Screen name="Recipes" component={Recipes} />
         </Stack.Navigator>
       </Provider>
 

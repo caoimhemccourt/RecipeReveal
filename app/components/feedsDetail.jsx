@@ -16,14 +16,14 @@ const FeedsDetail = ({data}) => {
     
   return (
     <TouchableOpacity onPress={handleClick} className="rounded-xl items-center bg-[#A6EADD] flex" 
-    style={ { height: cardHeight, flexDirection: 'column'} }
+    style={{ height: 310, width: 300 }}
     >
       <Image 
         source={{ uri : data?.mainImage?.asset?.url }} 
         resizeMode='contain' 
         className="w-32 h-48 mb-2 p-2"
       />
-      <View className="space-y-1 w-full mb-2">
+      <View className="space-y-1 w-full mb-2 items-center">
         <Text className="text-base font-semibold text-[#36454F]">{ data?.title }</Text>
       </View>
 

@@ -16,7 +16,7 @@ const NavigationTab = (activeScreen) => {
             <MaterialCommunityIcons name="bowl-mix-outline" size={32} color="#555" />
         </TouchableOpacity>
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Recipes")}>
             <MaterialIcons name="menu-book" size={32} color="#555" />
         </TouchableOpacity>
 
