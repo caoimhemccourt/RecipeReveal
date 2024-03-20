@@ -1,9 +1,8 @@
 import { View, Text, Dimensions, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native'
 
-const FeedsDetail = ({data}) => {
+const FeedsDetail = ({ data }) => {
     const screenHeight = Math.round(Dimensions.get("window").height);
     const cardHeight = screenHeight / 2.4
 
