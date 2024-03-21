@@ -12,8 +12,11 @@ const RecipeScreen = ({ route }) => {
     const [data, setData] = useState(null)
     const [isLoading, setIsLoading] = useState(false)
     const navigation = useNavigation()
+    const navTabHeight = 160
 
     const screenHeight = Math.round(Dimensions.get("window").height);
+    const cardHeight = screenHeight / 2.25
+
 
     useEffect(() => {
         setIsLoading(true);
@@ -26,90 +29,60 @@ const RecipeScreen = ({ route }) => {
 
     return (
         <SafeAreaView className="flex-1 items-center justify-start bg-[#5FB6A6]">
-            <Header/>
-                <View className="flex-1 items-start justify-start space-y-4">
-                    {isLoading ? (
-                        <View className="flex-1 h-60 p-20">
-                            <ActivityIndicator size={"large"} color={"teal"} />
-                        </View>
-                    ) : (
-                        <>
-                            <ScrollView>
-                                <View className="rounded-xl items-center justify-center relative bg-[#A6EADD] flex top-[8%]"
-                                    style={{ height: screenHeight / 2.5, width: 300, padding: 40 }}
-                                >
-                                    <Image
-                                        source={{ uri: data?.mainImage?.asset?.url }}
-                                        resizeMode='contain'
-                                        className="w-32 h-48 mb-2"
-                                    />
-                                    <View className="space-y-1 w-full mb-2 items-center">
-                                        <Text className="text-base font-semibold text-[#36454F]">{data?.title}</Text>
-                                    </View>
-
-                                    <View className="space-y-1 w-full">
-                                        <Text className="text-sm text-[#36454F]">{data?.Description}</Text>
+            <Header />
+            <View className="flex-1 items-start justify-start space-y-4 top-24" style={{ paddingBottom: navTabHeight, paddingTop: '200' }}>
+                {isLoading ? (
+                    <View className="flex-1 h-60 p-20">
+                        <ActivityIndicator size={"large"} color={"teal"} />
+                    </View>
+                ) : (
+                    <>
+                        <ScrollView className="w-5/6" style={{ flex: 1 }}>
+                            <View className="w-full mb-4">
+                                <View className="bg-[#A6EADD] rounded-xl p-4">
+                                    {data?.mainImage?.asset?.url && (
+                                        <View className="p-4">
+                                            <Image
+                                                source={{ uri: data?.mainImage?.asset?.url }}
+                                                resizeMode='contain'
+                                                style={{ width: '100%', aspectRatio: 16 / 8 }}
+                                            />
+                                        </View>
+                                    )}
+                                    <Text className="text-xl font-bold text-center text-[#36454F]">{data?.title}</Text>
+                                    <Text className="text-base text-center text-[#36454F] mt-2">{data?.Description}</Text>
+                                </View>
+                            </View>
+                            <View className="flex-row w-full mb-4">
+                                <View className="flex-1 mr-2">
+                                    <View className="bg-[#A6EADD] rounded-xl p-4">
+                                        <Text className="text-base text-[#36454F] mb-2">Recipe Type: {data?.RecipeType}</Text>
+                                        <Text className="text-base text-[#36454F] mb-2">Preparation Time: {data?.PreparationTime}</Text>
+                                        <Text className="text-base text-[#36454F] mb-2">Cooking Time: {data?.CookingTime}</Text>
+                                        <Text className="text-base text-[#36454F] mb-2">Nutritional Information: {data?.NutritionalInformation}</Text>
                                     </View>
                                 </View>
-                                <View className="rounded-xl items-center justify-center relative bg-[#A6EADD] flex-row top-[34%]"
-                                    style={{ height: 350, width: 300, padding: 20 }}
-                                >
-                                    {/* LEFT COLUMN */}
-                                    <View className="flex-1 p-2">
-                                        <View className="space-y-1 w-full p-1">
-                                            <Text className="text-sm text-[#36454F]">Recipe Type: {data?.RecipeType}</Text>
-                                        </View>
-                                        <View className="space-y-1 w-full p-1">
-                                            <Text className="text-sm text-[#36454F]">Preparation Time: {data?.PreparationTime}</Text>
-                                        </View>
-                                        <View className="space-y-1 w-full p-1">
-                                            <Text className="text-sm text-[#36454F]">Cooking Time: {data?.CookingTime}</Text>
-                                        </View>
-                                        <View className="space-y-1 w-full p-1">
-                                            <Text className="text-sm text-[#36454F]">Nutritional Information: {data?.NutritionalInformation}</Text>
-                                        </View>
-                                    </View>
-
-                                    {/* RIGHT COLUMN */}
-                                    <View className="flex-1">
-                                        <View className="space-y-1 w-full">
-                                            <Text className="text-sm text-[#36454F]">Ingredients: </Text>
-                                            <View>
-                                                {data?.Ingredients.map((ingredient, index) => (
-                                                    <View key={index} className="w-full">
-                                                        <Text className="text-sm text-[#36454F]">
-                                                            {ingredient}
-                                                        </Text>
-                                                    </View>
-                                                ))}
-                                            </View>
-                                        </View>
+                                <View className="flex-1 ml-2">
+                                    <View className="bg-[#A6EADD] rounded-xl p-4">
+                                        <Text className="text-base text-[#36454F] mb-2">Ingredients:</Text>
+                                        {data?.Ingredients.map((ingredient, index) => (
+                                            <Text key={index} className="text-base text-[#36454F]">{ingredient}</Text>
+                                        ))}
                                     </View>
                                 </View>
-                                {/* METHODS */}
-                                <View className="rounded-xl items-center justify-center relative bg-[#A6EADD] flex-row top-[40%]"
-                                    style={{ height: 425, width: 300, padding: 40 }}
-                                >
-                                    <View className="flex-1 p-1">
-                                        <View className="space-y-1 w-full">
-                                            <Text className="text-m text-[#36454F] font-medium">Method: </Text>
-                                            <View>
-                                                {data?.Method.map((method, index) => (
-                                                    <View key={index} className="w-full">
-                                                        <Text className="text-sm text-[#36454F]">
-                                                            {method}
-                                                        </Text>
-                                                    </View>
-                                                ))}
-                                            </View>
-                                        </View>
-                                    </View>
+                            </View>
+                            <View className="w-full">
+                                <View className="bg-[#A6EADD] rounded-xl p-4">
+                                    <Text className="text-xl font-bold text-[#36454F] mb-2">Method:</Text>
+                                    {data?.Method.map((method, index) => (
+                                        <Text key={index} className="text-base text-[#36454F]">{method}</Text>
+                                    ))}
                                 </View>
-
-                            </ScrollView>
-                        </>
-                    )}
-                </View>
+                            </View>
+                        </ScrollView>
+                    </>
+                )}
+            </View>
         </SafeAreaView>
     )
 }

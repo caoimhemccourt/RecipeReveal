@@ -1,13 +1,16 @@
 import { View, Text, Image, ImageBase, TouchableOpacity, TextInput } from 'react-native'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import Swiper from 'react-native-swiper'
 import { Brand, Screen1 } from '../assets'
 import { useNavigation } from '@react-navigation/native'
 import AsyncStorage from "@react-native-async-storage/async-storage"
+import { fetchUser } from '../sanity'
 
 const OnBoardingScreen = () => {
     const navigation = useNavigation();
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
 
     useEffect(() => {
         const checkOnBoardingStatus = async () => {
@@ -20,11 +23,15 @@ const OnBoardingScreen = () => {
     }, []);
 
     const handleLoginClick = async () => {
-        try {
+        const users = await fetchUser();
+
+        const user = users.find(user => user.username === username && user.password === password);
+        if (user) {
             await AsyncStorage.setItem("@onboarding_complete", "true");
             navigation.navigate("Dashboard");
-        } catch (error) {
-            console.log("Error on storing onboarding status : ", error);
+        } else {
+            console.log("Invalid username or password");
+            alert("Invalid username or password")
         }
     };
 
@@ -36,7 +43,14 @@ const OnBoardingScreen = () => {
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'white' }}>
             <Swiper showsButtons={false} loop={false}>
                 <ScreenOne />
-                <ScreenTwo onLoginClick={handleLoginClick} onSignUpClick={handleSignUpClick}/>
+                <ScreenTwo
+                    onLoginClick={handleLoginClick} 
+                    onSignUpClick={handleSignUpClick}
+                    username={username}
+                    setUsername={setUsername}
+                    password={password}
+                    setPassword={setPassword}
+                />
             </Swiper>
         </View>
     );
@@ -58,17 +72,26 @@ const OnBoardingScreen = () => {
     )
 }
 
-export const ScreenTwo = ( {onLoginClick, onSignUpClick} ) => {
+export const ScreenTwo = ( {onLoginClick, onSignUpClick, username, setUsername, password, setPassword} ) => {
     return (
         <View className="flex-1 items-center justify-center bg-[#5FB6A6]">
             <View className="w-56 h-auto flex items-center justify-center p-2 absolute top-20">
                 <Image source={Brand} className="w-40 h-32" resizeMode='contain' />
             </View>
-            <View className="w-80 h-60 flex rounded-md p-2 absolute bg-[#A6EADD]">
-                <Text className="text-m font-serif font-medium text-[#36454F] top-3">Name </Text>
-                <TextInput className="w-50 h-70 flex rounded-md p-2 bg-[#5FB6A6] top-3"></TextInput>  
-                <Text className="text-m font-serif font-medium text-[#36454F] top-5">Password </Text>
-                <TextInput className="w-50 h-50 flex rounded-md p-2 bg-[#5FB6A6] top-5" secureTextEntry={true}></TextInput>
+            <View className="w-80 h-80 flex rounded-md p-2 absolute bg-[#A6EADD]">
+                <Text className="text-lg font-serif font-medium text-[#36454F] top-3">Name </Text>
+                <TextInput 
+                    className="w-50 h-70 flex rounded-md p-2 bg-[#5FB6A6] top-3"
+                    onChangeText={text => setUsername(text)}
+                    placeholder='Username'
+                />
+                <Text className="text-lg font-serif font-medium text-[#36454F] top-5">Password </Text>
+                <TextInput 
+                    className="w-50 h-50 flex rounded-md p-2 bg-[#5FB6A6] top-5"
+                    onChangeText={text => setPassword(text)}
+                    placeholder='Password'
+                    secureTextEntry={true} 
+                />
                 <Text className="text-m font-light  underline text-[#36454F] top-6">Forgot Password?</Text>
                 <TouchableOpacity onPress={onLoginClick}>
                     <Text className="font-bold text-2xl text-[#36454F] top-10 left-24">LOG IN</Text>

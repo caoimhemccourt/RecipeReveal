@@ -42,7 +42,7 @@ const Recipes = () => {
             {/* Scrollable container starts */}
 
             <View className="flex-1 items-center justify-center">
-                <ScrollView style={{ width: '80%' }}>
+                <ScrollView style={{ width: '90%' }}>
                     {isLoading ? (
                         <View className="flex-1 h-60 p-20">
                             <ActivityIndicator size={"large"} color={"teal"} />

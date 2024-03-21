@@ -20,7 +20,7 @@ const NavigationTab = (activeScreen) => {
             <MaterialIcons name="menu-book" size={32} color="#555" />
         </TouchableOpacity>
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("TipsAndTrick")}>
             <MaterialCommunityIcons name="lightbulb-on-outline" size={32} color="#555" />
         </TouchableOpacity>
       </View>
