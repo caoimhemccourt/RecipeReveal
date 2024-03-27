@@ -1,15 +1,40 @@
 import { View, Text, Image, TouchableOpacity, TextInput } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { Brand, Screen1 } from '../assets'
 import { useNavigation } from '@react-navigation/native'
+import { fetchUser, addUser } from '../sanity'
 
 
 const SignUp = () => {
   const navigation = useNavigation()
 
-  const handleSignUpClick1 = () => {
-    navigation.navigate("Dashboard")
-  }
+  const [name, setName] = useState('');
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+  const handleSignUpClick1 = async() => {
+    if (password !== confirmPassword) {
+      alert("Passwords do not match!")
+      return;
+    }
+
+    const newUser = {
+      name,
+      username,
+      email,
+      password
+    };
+    try {
+      await addUser(newUser);
+
+      navigation.navigate("Dashboard");
+    } catch (error) {
+      console.error("Error signing up:", error.message);
+      alert("Error signing up. Please try again.");
+    }
+  };
 
   return (
     <>
@@ -20,17 +45,40 @@ const SignUp = () => {
     <View className="w-80 h-1/2 flex rounded-md p-2 absolute bg-[#A6EADD]">
         <Text className="text-m left-20 font-semibold text-[#36454F]">BECOME A MEMBER</Text>
         <Text className="text-m font-serif font-medium text-[#36454F] top-2">Name </Text>
-        <TextInput className="w-30 h-30 flex rounded-md p-2 bg-[#5FB6A6] top-2"></TextInput>  
+        <TextInput
+          value={name}
+          onChangeText={setName} 
+          className="w-30 h-30 flex rounded-md p-2 bg-[#5FB6A6] top-2" 
+          placeholder='Name'
+        />
         <Text className="text-m font-serif font-medium text-[#36454F] top-2">Username </Text>
-        <TextInput className="w-30 h-30 flex rounded-md p-2 bg-[#5FB6A6] top-2"></TextInput>  
+        <TextInput          
+          value={username}
+          onChangeText={setUsername} 
+          className="w-30 h-30 flex rounded-md p-2 bg-[#5FB6A6] top-2"
+          placeholder='Username' 
+        />
         <Text className="text-m font-serif font-medium text-[#36454F] top-2">Email </Text>
-        <TextInput className="w-30 h-30 flex rounded-md p-2 bg-[#5FB6A6] top-2"></TextInput>
-        <Text className="text-m font-serif font-medium text-[#36454F] top-2">Phone Number </Text>
-        <TextInput className="w-30 h-30 flex rounded-md p-2 bg-[#5FB6A6] top-2"></TextInput>   
+        <TextInput 
+          value={email}
+          onChangeText={setEmail}
+          className="w-30 h-30 flex rounded-md p-2 bg-[#5FB6A6] top-2" 
+          placeholder='Email'
+        />
         <Text className="text-m font-serif font-medium text-[#36454F] top-2">Password </Text>
-        <TextInput className="w-30 h-30 flex rounded-md p-2 bg-[#5FB6A6] top-2"></TextInput>  
+        <TextInput 
+          value={password}
+          onChangeText={setPassword}
+          className="w-30 h-30 flex rounded-md p-2 bg-[#5FB6A6] top-2" 
+          placeholder='Password'
+        />
         <Text className="text-m font-serif font-medium text-[#36454F] top-2">Confirm Password </Text>
-        <TextInput className="w-30 h-30 flex rounded-md p-2 bg-[#5FB6A6] top-2"></TextInput>  
+        <TextInput 
+          value={confirmPassword}
+          onChangeText={setConfirmPassword}
+          className="w-30 h-30 flex rounded-md p-2 bg-[#5FB6A6] top-2"
+          placeholder='Confirm Password'
+        />
         <Text className="font-light underline text-[#36454F] top-6 left-8">Click here to see Terms and Conditions!</Text>
         <TouchableOpacity onPress={handleSignUpClick1}>
             <Text className="font-bold text-2xl text-[#36454F] top-10 left-24">SIGN UP!</Text>

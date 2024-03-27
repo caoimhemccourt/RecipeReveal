@@ -12,7 +12,7 @@ const NavigationTab = (activeScreen) => {
             <MaterialCommunityIcons name="view-dashboard" size={32} color={activeScreen === "Dashboard" ? "white" : "#555"} />
         </TouchableOpacity>
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Food")}>
             <MaterialCommunityIcons name="bowl-mix-outline" size={32} color="#555" />
         </TouchableOpacity>
 

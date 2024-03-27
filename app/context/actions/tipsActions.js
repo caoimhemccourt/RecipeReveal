@@ -1,15 +1,6 @@
-export const SET_TIPS = (tips) =>
-{
+export const SET_TIPS = (tips) => {
     return {
-        type : "SET_TIPS_NULL",
-        tips : null
-    }
-}
-
-export const SET_TIPS_NULL = (tips) =>
-{
-    return {
-        type : "SET_TIPS_NULL",
-        tips : null,
+        type: "SET_TIPS",
+        tips: tips
     }
 }

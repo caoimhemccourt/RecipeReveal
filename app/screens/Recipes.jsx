@@ -1,18 +1,20 @@
-import { View, Text, Image, SafeAreaView, ScrollView, ActivityIndicator, TouchableOpacity } from 'react-native'
+import React, { useEffect, useState } from 'react';
+import { View, Text, Image, SafeAreaView, ScrollView, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
-import React, { useEffect, useState } from 'react'
 import { fetchFeeds } from '../sanity';
 import { useDispatch, useSelector } from 'react-redux';
 import { SET_FEEDS } from '../context/actions/feedsActions';
-import { Feeds, Header } from '../components';
+import { Feeds, FeedsDetail, Header } from '../components';
 import { useNavigation } from '@react-navigation/native';
+
 
 const Recipes = () => {
     const [isLoading, setIsLoading] = useState(false);
+    const [expandedRecipeType, setExpandedRecipeType] = useState(null); // State for expanded recipe type
     const dispatch = useDispatch();
-    const feeds = useSelector((state) => state.feeds);
-    const navigation = useNavigation()
-
+    const feedsData = useSelector((state) => state.feeds);
+    const feeds = feedsData ? feedsData.feeds : []; // Null check for feeds
+    const navigation = useNavigation();
 
     useEffect(() => {
         setIsLoading(true);
@@ -35,25 +37,42 @@ const Recipes = () => {
         }
     }, [dispatch]);
 
-    return ( /* This will be the header code that can be used for all pages */
+    return (
         <SafeAreaView className="flex-1 items-center justify-start bg-[#5FB6A6]">
             <Header />
+            <View className="top-[10%] w-full">
+                {recipeTypes.map(recipeType => (
+                    <View key={recipeType.value}>
+                        {/* Recipe type header */}
+                        <TouchableOpacity
+                            onPress={() => setExpandedRecipeType(expandedRecipeType === recipeType.value ? null : recipeType.value)}
+                            style={{ backgroundColor: '#A6EADD', padding: 10, marginBottom: 10, borderRadius: 10, marginRight: 10, marginLeft: 10, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'  }}
+                        >
+                            <Text className="text-[#36454F] font-semibold" >{recipeType.title}</Text>
+                            <MaterialIcons name={expandedRecipeType === recipeType.value ? 'expand-less' : 'expand-more'} size={24} color='#36454F' />
+                        </TouchableOpacity>
 
-            {/* Scrollable container starts */}
-
-            <View className="flex-1 items-center justify-center">
-                <ScrollView style={{ width: '90%' }}>
-                    {isLoading ? (
-                        <View className="flex-1 h-60 p-20">
-                            <ActivityIndicator size={"large"} color={"teal"} />
-                        </View>
-                    ) : (
-                        <Feeds feeds={feeds?.feeds} />
-                    )}
-                </ScrollView>
+                        {/* Recipes section */}
+                        {expandedRecipeType === recipeType.value && (
+                            <ScrollView horizontal>
+                                {feeds.filter(feed => feed.RecipeType === recipeType.value).map(feed => (
+                                    <FeedsDetail key={feed._id} data={feed} />
+                                ))}
+                            </ScrollView>
+                        )}
+                    </View>
+                ))}
             </View>
         </SafeAreaView>
-    )
-}
+    );
+};
 
-export default Recipes
+export default Recipes;
+
+const recipeTypes = [
+    { title: 'Based On Your Food', value: 'basedOnYourFood' },
+    { title: 'Trending Recipes', value: 'trendingRecipes' },
+    { title: 'Breakfast', value: 'breakfast' },
+    { title: 'Lunch', value: 'lunch' },
+    { title: 'Dinner', value: 'dinner' },
+];

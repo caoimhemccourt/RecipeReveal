@@ -73,7 +73,29 @@ export default defineType({
     defineField({
       name: 'NutritionalInformation',
       title: 'Nutritional Information',
-      type: 'string',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'Kcal',
+          title: 'Kcal',
+          type: 'number',
+        }),
+        defineField({
+          name: 'Fat',
+          title: 'Fat',
+          type: 'number', 
+        }),
+        defineField({
+          name: 'Carbs',
+          title: 'Carbs',
+          type: 'number', 
+        }),
+        defineField({
+          name: 'Protein',
+          title: 'Protein',
+          type: 'number', 
+        }),
+      ],
     }),
     defineField({
       name: 'Method',

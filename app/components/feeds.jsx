@@ -2,7 +2,7 @@ import { View, Text, ActivityIndicator } from 'react-native'
 import React from 'react'
 import { FeedsDetail } from '../components'
 
-const Feeds = ({feeds}) => {
+const Feeds = ({ feeds }) => {
   return (
     <View className="flex-column flex-wrap items-center justify-center p-20">
       {feeds?.length > 0 ? (
