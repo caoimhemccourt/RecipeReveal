@@ -21,11 +21,11 @@ export default defineType({
             type: 'string',
             options: {
                 list: [
-                    { title: 'Fruit And Veg', value: 'fruitAndVeg' },
-                    { title: 'Cupboard', value: 'cupboard' },
-                    { title: 'Bread', value: 'bread' },
-                    { title: 'Dairy And Eggs', value: 'dairyAndEggs' },
-                    { title: 'Poultry And Fish', value: 'poultryAndFish' },
+                    { title: 'Fruit And Veg', value: 'FruitAndVeg' },
+                    { title: 'Cupboard', value: 'Cupboard' },
+                    { title: 'Bread', value: 'Bread' },
+                    { title: 'Dairy And Eggs', value: 'DairyAndEggs' },
+                    { title: 'Poultry And Fish', value: 'PoultryAndFish' },
                 ],
                 layout: 'radio'
             }
@@ -33,17 +33,23 @@ export default defineType({
         defineField({
             name: 'price',
             title: 'Price',
-            type: 'number',
+            type: 'string',
+            options: {
+                lists: [
+                    { title: 'GBP', value: '£'},
+                ]
+            }
         }),
         defineField({
             name: 'quantity',
             title: 'Quanitity',
-            type: 'number',
+            type: 'string',
         }),
         defineField({
             name: 'useBy',
             title: 'Use By Date',
-            type: 'datetime',
+            type: 'string',
+            format: 'DD/MM/YYYY'
         }),
     ],
 })

@@ -84,7 +84,7 @@ export const ScreenTwo = ( {onLoginClick, onSignUpClick, username, setUsername, 
             <View className="w-56 h-auto flex items-center justify-center p-2 absolute top-20">
                 <Image source={Brand} className="w-40 h-32" resizeMode='contain' />
             </View>
-            <View className="w-80 h-80 flex rounded-md p-2 absolute bg-[#A6EADD]">
+            <View className="w-80 h-80 flex rounded-xl p-2 absolute bg-[#A6EADD]">
                 <TextInput 
                     className="w-50 h-70 flex rounded-md p-2 bg-[#5FB6A6] top-5"
                     onChangeText={text => setUsername(text)}
@@ -96,9 +96,9 @@ export const ScreenTwo = ( {onLoginClick, onSignUpClick, username, setUsername, 
                     placeholder='Password'
                     secureTextEntry={true} 
                 />
-                <Text className="text-m font-light  underline text-[#36454F] top-12">Forgot Password?</Text>
-                <TouchableOpacity onPress={onLoginClick}>
-                    <Text className="font-bold text-2xl text-[#36454F] top-20 left-24">LOG IN</Text>
+                <Text className="text-m font-light underline text-[#36454F] top-12">Forgot Password?</Text>
+                <TouchableOpacity className="flex items-center rounded-md p-2 top-20 bg-[#5FB6A6] mr-20 ml-20" onPress={onLoginClick}>
+                    <Text className="font-bold text-2xl text-[#36454F]">LOG IN</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={onSignUpClick}>
                     <Text className="font-light text-m underline text-[#36454F] top-28 left-10">Not a member yet? Sign up here!</Text>

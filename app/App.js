@@ -2,12 +2,13 @@ import { View, Text } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Dashboard, OnBoardingScreen, RecipeScreen, SignUp, Notifications, Profile, Recipes, Food, TipsAndTricks, YourFood, YourRecipes, ShoppingList } from './screens';
+import { Dashboard, OnBoardingScreen, RecipeScreen, SignUp, Notifications, Profile, Recipes, Food, TipsAndTricks, YourFood, YourRecipes, ShoppingList, yourFoodDetails, NewFoodItem } from './screens';
 import { Provider } from "react-redux"
 import "react-native-url-polyfill/auto";
 import store from './context/store';
 import { NavigationTab } from './components';
 import LogFood from './screens/logFood';
+import YourFoodDetails from './screens/yourFoodDetails';
 
 const Stack = createNativeStackNavigator();
 
@@ -47,6 +48,8 @@ const App = () => {
           <Stack.Screen name="YourFood" component={YourFood} />
           <Stack.Screen name="YourRecipes" component={YourRecipes} />
           <Stack.Screen name="ShoppingList" component={ShoppingList} />
+          <Stack.Screen name="yourFoodDetails" component={YourFoodDetails} />
+          <Stack.Screen name="NewFoodItem" component={NewFoodItem} />
         </Stack.Navigator>
       </Provider>
 

@@ -1,14 +1,19 @@
-import { View, Text, Dimensions, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
+import { useNavigation } from '@react-navigation/native'
+
 
 
 const FoodDetail = ({ data }) => {
-    const screenHeight = Math.round(Dimensions.get("window").height);
-    const cardHeight = screenHeight / 4
+    const navigation = useNavigation()
+
+    const handleClick = () => {
+      navigation.navigate("yourFoodDetails", {_id : data?._id})
+    }
 
 
   return (
-    <TouchableOpacity className="rounded-xl items-center bg-[#A6EADD] shadow-lg opacity-75 flex ml-3 mr-3 mb-2"
+    <TouchableOpacity onPress={handleClick} className="rounded-xl items-center bg-[#A6EADD] shadow-lg opacity-75 flex ml-3 mr-3 mb-2"
     style = {{ height: 50 }}
     >
       <View className="space-y-1 w-full mt-1 ml-4">

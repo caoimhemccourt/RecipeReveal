@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, Image } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, Image, Dimensions } from 'react-native';
 import { useSelector } from 'react-redux';
 import { Header } from '../components';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { fetchFavouriteRecipes } from '../sanity';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
+import { Ionicons } from '@expo/vector-icons';
 
 
 const YourRecipesScreen = () => {
   const [favouriteRecipes, setFavouriteRecipes] = useState([]);
   const [userId, setUserId] = useState(null); // State to hold userId
-  const navTabHeight = 175
+  const navigation = useNavigation()
+
 
 
   useEffect(() => {
@@ -56,34 +58,40 @@ const YourRecipesScreen = () => {
     fetchFavourites();
   }, [userId]);
 
+  const handleRecipeClick = (_id) => {
+    navigation.navigate('RecipeScreen', { _id });
+  }
+
 
 
   return (
-    <SafeAreaView className="flex-1 items-center justify-start bg-[#5FB6A6]">
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#5FB6A6' }}>
       <Header />
-      <View className="top-20">
-        <View className="bg-[#A6EADD] p-2 rounded-xl">
-          <Text className="text-xl font-bold text-center text-[#36454F]">Your Favourite Recipes</Text>
+      <View className="top-[10%] w-full">
+        <View className="items-center rounded-xl bg-[#A6EADD] p-3 ml-2 mr-2" style={{ flexDirection: 'row' }}>
+          <TouchableOpacity onPress={() => navigation.goBack()} className="mr-24">
+            <Ionicons name="arrow-back-sharp" size={25} color="#555" />
+          </TouchableOpacity>
+          <Text className="text-[#36454F] text-base font-semibold">Your Recipes</Text>
         </View>
-        <ScrollView className="w-5/6" style={{ flex: 1 }}>
-          <View className="flex-1 mr-2 p-4">
-            <View className="bg-[#A6EADD] rounded-xl p-4">
-              {favouriteRecipes?.map(recipe => (
-                <TouchableOpacity
-                  key={recipe._id}>
-                      <Image
-                      source={{ uri : recipe?.mainImage?.asset?.url }} 
-                      resizeMode='contain'
-                      className="w-24 h-24 mb-2 mt-1"
-                      />
-                    <Text className="text-sm font-semibold text-center text-[#36454F]">{recipe.title}</Text>
-                </TouchableOpacity>
-              ))}
-            </View>
-          </View>
-        </ScrollView>
       </View>
+      <ScrollView className="top-20" contentContainerStyle={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', paddingHorizontal: 16, paddingVertical: 12 }}>
+        {favouriteRecipes.map(recipe => (
+          <TouchableOpacity key={recipe._id} onPress={() => handleRecipeClick(recipe._id)} style={{ width: '48%', marginBottom: 16 }}>
+            <View style={{ backgroundColor: '#A6EADD', borderRadius: 10, padding: 12 }}>
+              <Image
+                source={{ uri: recipe?.mainImage?.asset?.url }}
+                resizeMode='contain'
+                style={{ width: '100%', height: 120, marginBottom: 8 }}
+              />
+              <Text style={{ fontSize: 14, fontWeight: '600', color: '#36454F', textAlign: 'center' }}>{recipe.title}</Text>
+            </View>
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
     </SafeAreaView>
   );
 };
+
+
 export default YourRecipesScreen;

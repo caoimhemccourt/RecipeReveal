@@ -4,7 +4,9 @@ export const fetchQueryUser = `*[_type == 'user'] | order(_createdAt desc) {
     username, 
     email,
     password,
-    favouriteRecipes
+    favouriteRecipes,
+    loggedFoods,
+    shoppingList,
   }`;
   
   

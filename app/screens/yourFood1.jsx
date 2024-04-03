@@ -77,9 +77,9 @@ const YourFood = () => {
 export default YourFood;
 
 const foodCategories = [
-  { title: 'Fruit And Veg', value: 'fruitAndVeg' },
-  { title: 'Cupboard', value: 'cupboard' },
-  { title: 'Bread', value: 'bread' },
-  { title: 'Dairy And Eggs', value: 'dairyAndEggs' },
-  { title: 'Poultry And Fish', value: 'poultryAndFish' },
+  { title: 'Fruit And Veg', value: 'FruitAndVeg' },
+  { title: 'Cupboard', value: 'Cupboard' },
+  { title: 'Bread', value: 'Bread' },
+  { title: 'Dairy And Eggs', value: 'DairyAndEggs' },
+  { title: 'Poultry And Fish', value: 'PoultryAndFish' },
 ];

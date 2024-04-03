@@ -1,8 +1,7 @@
 import { View, Dimensions, Text, SafeAreaView, Image, ActivityIndicator, TouchableOpacity, ScrollView, Alert } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
-import { Brand } from '../assets';
-import { Entypo } from '@expo/vector-icons';
+import { Entypo, Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native'
 import { Header } from '../components';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -57,7 +56,10 @@ const RecipeScreen = ({ route }) => {
                     <>
                         <ScrollView className="w-5/6" style={{ flex: 1 }}>
                             <View className="w-full mb-4">
-                                <View className="bg-[#A6EADD] rounded-xl p-4">
+                                <View className="bg-[#A6EADD] rounded-xl p-4" >
+                                    <TouchableOpacity onPress={() => navigation.goBack()} className="mr-24">
+                                        <Ionicons name="arrow-back-sharp" size={25} color="#555" />
+                                    </TouchableOpacity>
                                     {data?.mainImage?.asset?.url && (
                                         <View className="p-4">
                                             <Image

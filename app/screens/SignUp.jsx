@@ -43,7 +43,7 @@ const SignUp = () => {
                 <Image source={Brand} className="w-40 h-32" resizeMode='contain' />
             </View>
     <View className="w-80 h-1/2 flex rounded-md p-2 absolute bg-[#A6EADD]">
-        <Text className="text-m left-20 font-semibold text-[#36454F]">BECOME A MEMBER</Text>
+        <Text className="text-m font-serif text-center font-medium text-[#36454F] top-1">BECOME A MEMBER</Text>
         <Text className="text-m font-serif font-medium text-[#36454F] top-2">Name </Text>
         <TextInput
           value={name}
@@ -79,9 +79,9 @@ const SignUp = () => {
           className="w-30 h-30 flex rounded-md p-2 bg-[#5FB6A6] top-2"
           placeholder='Confirm Password'
         />
-        <Text className="font-light underline text-[#36454F] top-6 left-8">Click here to see Terms and Conditions!</Text>
-        <TouchableOpacity onPress={handleSignUpClick1}>
-            <Text className="font-bold text-2xl text-[#36454F] top-10 left-24">SIGN UP!</Text>
+        <Text className="font-light underline text-[#36454F] top-6 text-center">Click here to see Terms and Conditions!</Text>
+        <TouchableOpacity className="flex items-center rounded-md p-2 top-10 bg-[#5FB6A6] mr-20 ml-20" onPress={handleSignUpClick1}>
+            <Text className="font-bold text-2xl text-[#36454F]">SIGN UP!</Text>
         </TouchableOpacity>
     </View>
     </View>
