@@ -1,10 +1,10 @@
-import { View, Text, TouchableOpacity, TextInput } from 'react-native'
+import { View, Text, TouchableOpacity, TextInput, Alert, ScrollView } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { Header } from '../components'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { Ionicons } from '@expo/vector-icons'
+import { Ionicons, MaterialIcons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
-import { fetchCurrentUser, searchFood, updateUserShoppingList } from '../sanity'
+import { fetchCurrentUser, fetchUserShoppingList, searchFood, updateUserShoppingList } from '../sanity'
 
 const ShoppingList = () => {
   const navigation = useNavigation()
@@ -24,18 +24,19 @@ const ShoppingList = () => {
 
   const addToShoppingList = async (foodItem) => {
     try {
-      const currentUser = await fetchCurrentUser();
-      if (currentUser) {
-        console.log('Food item to be added:', foodItem);
-        const updatedUser = await updateUserShoppingList(currentUser, foodItem);
-        setShoppingList(updatedUser.shoppingList);
-      } else {
-        console.error('Current user is undefined');
-      }
+        const currentUser = await fetchCurrentUser();
+        if (currentUser) {
+            console.log('Food item to be added:', foodItem);
+            const updatedUser = await updateUserShoppingList(currentUser, foodItem);
+                setShoppingList(updatedUser.shoppingList);
+        } else {
+            console.error('Current user is undefined');
+        }
     } catch (error) {
-      console.error('Error adding to shopping list:', error);
+        console.error('Error adding to shopping list:', error);
     }
-  }
+}
+
 
   return (
     <SafeAreaView className="flex-1 items-center justify-start bg-[#5FB6A6]">
@@ -47,24 +48,26 @@ const ShoppingList = () => {
           </TouchableOpacity>
           <Text className="text-[#36454F] text-base font-semibold">Shopping List</Text>
         </View>
-        <View className="p-2" />
-        <View className="bg-[#A6EADD] p-2 rounded-xl">
+        <View className="p-1" />
+        <View className="bg-[#A6EADD] p-2 rounded-xl ml-2 mr-2">
           <TextInput
             placeholder="Search food..."
-            className="text-base"
+            className="text-base items-center mb-1 text-[#36454F]"
             value={searchQuery}
             onChangeText={setSearchQuery}
             onSubmitEditing={handleSearch}
           />
-          {/* Display search results */}
-          <View>
-            {searchResults.map((foodItem) => (
-              <TouchableOpacity key={foodItem.foodID} onPress={() => addToShoppingList(foodItem)}>
-                <Text>{foodItem.product}</Text>
-                <Text>{foodItem.foodCategory}</Text>
-              </TouchableOpacity>
-            ))}
-          </View>
+        </View>
+        {/* Display search results */}
+        <View>
+          {searchResults.map((foodItem) => (
+            <TouchableOpacity key={foodItem.foodID} onPress={() => addToShoppingList(foodItem)}
+              className="bg-[#A6EADD] p-2 rounded-xl mt-2 ml-2 mr-2"
+            >
+              <Text className="text-[#36454F] text-base">{foodItem.product}</Text>
+              <Text className="text-[#36454F] text-xs">{foodItem.foodCategory}</Text>
+            </TouchableOpacity>
+          ))}
         </View>
       </View>
     </SafeAreaView>

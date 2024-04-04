@@ -1,5 +1,6 @@
 import { View, Text } from 'react-native'
 import React, { useEffect, useState } from 'react'
+import 'react-native-get-random-values';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Dashboard, OnBoardingScreen, RecipeScreen, SignUp, Notifications, Profile, Recipes, Food, TipsAndTricks, YourFood, YourRecipes, ShoppingList, yourFoodDetails, NewFoodItem } from './screens';

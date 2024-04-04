@@ -5,6 +5,7 @@ import { Header } from '../components';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { Ionicons } from '@expo/vector-icons';
 
 
 const NewFoodItem = ({ navigation }) => {
@@ -96,7 +97,12 @@ const NewFoodItem = ({ navigation }) => {
             <Header />
             <View className="top-24">
                 <View className="w-80 h-[76%] flex rounded-xl p-2 bg-[#A6EADD]">
-                    <Text className="text-base text-center font-semibold text-[#36454F]">Add New Food Item</Text>
+                    <View className="items-center rounded-xl bg-[#A6EADD]" style={{ flexDirection: 'row' }}>
+                        <TouchableOpacity onPress={() => navigation.goBack()} className="mr-24">
+                            <Ionicons name="arrow-back-sharp" size={25} color="#555" />
+                        </TouchableOpacity>
+                        <Text className="text-base right-10 font-semibold text-[#36454F]">Add New Food Item</Text>
+                    </View>
                     {/* Example: */}
                     <TextInput
                         className="w-50 h-70 flex rounded-md p-2 bg-[#5FB6A6] top-2 mb-2"
